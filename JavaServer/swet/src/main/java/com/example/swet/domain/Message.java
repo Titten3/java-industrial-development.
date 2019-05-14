@@ -1,14 +1,20 @@
 package com.example.swet.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Message {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
+    @NotBlank(message = "Pleas fill the message")
+    @Length(max = 2048, message= "message too long (more than 2kB)")
     private String text;
+    @Length(max = 255, message= "tag too long (more than 2kB)")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -35,9 +41,9 @@ public class Message {
 
     public String getText() { return text; }
 
-    public Integer getId() { return id; }
+    public Long getId() { return id; }
 
-    public void setId(Integer id) { this.id = id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getTag() { return tag; }
 
